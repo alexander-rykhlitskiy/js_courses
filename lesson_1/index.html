@@ -1,0 +1,19 @@
+<script>
+  'use strict';
+
+  alert('222');
+  console.log(new String(123));
+  console.log(String(123));
+
+  console.log(new Number(123));
+
+  // works only without strict mode
+  String.prototype.returnMe = function() {
+    return this;
+  }
+  console.log('123');
+  console.log('123'.returnMe());
+  console.log(typeof '123'.returnMe());
+
+  console.log('finish');
+</script>
