@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.11/ace.js"></script>
+
+  <title>Test</title>
+  <style type="text/css" media="screen">
+    #editor {
+      height: 500px;
+      width: 60%;
+      font-size: 17px;
+    }
+  </style>
+</head>
+<body>
+  Реализуйте функцию sum, которая принимает один аргумент и возвращает 4
+  <div id="editor"></div>
+  <div id="status">Status</div>
+
+  <button id="check-code">Проверить</button>
+
+  <script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.session.setMode("ace/mode/javascript");
+
+    document.querySelector("#check-code").addEventListener("click", (event) => {
+      let code = editor.getValue();
+      const status = document.querySelector("#status");
+      status.style.color = 'red';
+      const testCode = `
+        'use strict';
+        ${code}
+        if (sum(10) == 4) {
+          status.style.color = 'green';
+        }
+      `;
+      console.log(testCode);
+      eval(testCode);
+    });
+  </script>
+</body>
+</html>
