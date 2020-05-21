@@ -158,7 +158,6 @@ for (let country of countries) {
 }
 
 // ПРОДВИНУТОЕ ИСПОЛЬЗОВАНИЕ ФУНКЦИЙ
-// https://learn.javascript.ru/array-iteration#foreach
 // Создадим функцию, которая принимает другую функцию и вызывает ее
 let myFunction = function(anotherFunction) { anotherFunction() }
 myFunction(alert) //=> появилось диалоговое окно
