@@ -1,0 +1,174 @@
+<!-- ЗАДАНИЕ-ПОВТОРЕНИЕ -->
+<!-- Задать массив автомобилей с двумя полями. -->
+<!-- Составить строку, в которой через точку перечислено по одному полю из объекта (напр. name) -->
+<script type="text/javascript">
+  let cars = [{ name: 'audi', year: 1992 }, { name: 'mersedes', year: 2005 }]
+  let result = '';
+  for (let car of cars) {
+    result += car.name + '. ';
+  }
+  console.log(result);
+</script>
+
+<!-- ЗАДАНИЕ-ПОВТОРЕНИЕ -->
+<!-- Создать массив из 10 объектов с двумя полями: номер по порядку, имя (строка "имя " с номером) -->
+<script type="text/javascript">
+  let result = [];
+  for (let i = 0; i < 10; i++) {
+    result.push({ number: i, name: "Имя " + i});
+  }
+  console.log(result);
+</script>
+
+<!-- https://learn.javascript.ru/document -->
+
+<!-- https://learn.javascript.ru/dom-nodes#primer-dom -->
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>О лосях</title>
+</head>
+<body>
+  Правда о лосях.
+  <div>ВСЯ правда о лосях</div>
+</body>
+</html>
+
+<!--
+HTML
+  HEAD
+    #text ↵␣␣␣␣
+    TITLE
+      #text О лосях
+    #text ↵␣␣
+  #text ↵␣␣
+  BODY
+    #text Правда о лосях.
+-->
+
+<!-- Окружение может запускаться где угодно (на сервере, в мобильном приложении, в браузере -->
+<!-- В браузере оно состоит из: -->
+<!-- window: DOM, BOM, JavaScript -->
+
+<!-- https://learn.javascript.ru/browser-environment -->
+<!-- https://learn.javascript.ru/dom-navigation -->
+
+<script type="text/javascript">
+  let div = document.body.childNodes[1]; // доступ ко всем узлам (в т.ч. к текстовым узлам)
+  let div = document.body.children[0]; // доступ только к узлам элементам (только к тегам)
+</script>
+
+<!-- ЗАДАНИЕ -->
+<!-- node.textContent -->
+<!-- Собрать имена из списка в массив -->
+<html>
+<body>
+  <div>Пользователи:</div>
+  <ul id="list">
+    <li>Джон</li>
+    <li>Пит</li>
+    <li>Джессика</li>
+    <li>Сара</li>
+  </ul>
+</body>
+</html>
+
+<script type="text/javascript">
+  let names = [];
+  for (let li of document.body.childNodes[3].children) {
+    names.push(li.textContent);
+  }
+  console.log(names);
+</script>
+
+<!-- https://learn.javascript.ru/searching-elements-dom -->
+<script type="text/javascript">
+  let list = document.getElementById("list");
+  list.getElementsByTagName("li");
+  document.querySelectorAll("li");
+  let li = document.querySelector("li");
+  li.parentElement;
+  li.previousElementSibling;
+  li.nextElementSibling;
+  // https://learn.javascript.ru/basic-dom-node-properties#textcontent-prosto-tekst
+  document.body.textContent;
+</script>
+
+<!-- ЗАДАНИЕ -->
+<!-- node.textContent = -->
+<!-- Поменять имена в списке на числа от 0 по порядку (0, 1, 2 и т.д.) -->
+<script type="text/javascript">
+  let elements = document.querySelectorAll("li");
+  for (let i = 0; i < elements.length; i++) {
+    elements[i].textContent = i;
+  }
+</script>
+
+<!-- ЗАДАНИЕ -->
+<!-- node.style.backgroundColor = "red" -->
+<!-- Поменять цвет фона в элементах списка. -->
+<!-- Нечетные элементы - красный цвет. Четные элементы - зеленый -->
+<script type="text/javascript">
+  let elements = document.querySelectorAll("li");
+  for (let i = 0; i < elements.length; i++) {
+    if (i % 2 === 1) {
+      elements[i].style.backgroundColor = 'red';
+    } else {
+      elements[i].style.backgroundColor = 'green';
+    }
+  }
+</script>
+
+<!-- https://learn.javascript.ru/modifying-document -->
+<!-- ЗАДАНИЕ -->
+<!-- document.createElement('li') -->
+<!-- ul.appendChild(li); -->
+<!-- Создать массив объектов с полями name, age. Создать html список, элементы которого равны строкам -->
+<!-- {name} - {age} -->
+<ul>
+</ul>
+<script type="text/javascript">
+  let ul = document.querySelector('ul');
+  let cars = [{ name: 'audi', age: 20 }, { name: 'mersedes', age: 5 }]
+  for (let car of cars) {
+    let li = document.createElement('li');
+    li.textContent = car.name + ' - ' + car.age;
+    ul.appendChild(li);
+  }
+</script>
+
+<!-- ЗАДАНИЕ -->
+<!-- Создать массив объектов с полями name, age. Создать html таблицу с двумя колонками, -->
+<!-- заполненную этими объектами. Name должно быть красного цвета, age - зеленого -->
+<style>
+  table, th, td {
+    border: 1px solid black;
+  }
+</style>
+<table>
+  <thead>
+    <tr>
+      <th>Имя</th>
+      <th>Возраст</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+<script type="text/javascript">
+  let tbody = document.querySelector('table tbody');
+  let cars = [{ name: 'audi', age: 20 }, { name: 'mersedes', age: 5 }]
+  for (let car of cars) {
+    let tr = document.createElement('tr');
+    let nameTd = document.createElement('td');
+    nameTd.textContent = car.name;
+    nameTd.style.color = 'red';
+    let ageTd = document.createElement('td');
+    ageTd.textContent = car.age;
+    ageTd.style.color = 'green';
+    tr.appendChild(nameTd);
+    tr.appendChild(ageTd);
+    tbody.appendChild(tr);
+  }
+</script>
