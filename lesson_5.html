@@ -38,6 +38,8 @@
   [1, 2, 3].map((element) => element ** 2);
   // ЗАДАНИЕ
   // Описать функцию, которая принимает массив имен и возвращает массив объектов { name: имя }
+  // Принимает ['alex', 'julia']
+  // Возвращает [{ name: 'alex' }, { name: 'julia' }]
 
   // Про другие методы читайте здесь https://learn.javascript.ru/array-methods
   // Функция setTimeout
@@ -119,6 +121,11 @@
 <script type="text/javascript" src="./script.js"></script>
 <!-- Не работает. Разберемся, как находить баги (дебажить) такие проблемы -->
 <!-- https://learn.javascript.ru/debugging-chrome#tochki-ostanova-breakpoints -->
+<!-- нам нужно, чтобы js выполнялся тогда, когда весь html уже отображен
+(иначе внутри кода js вам не будет доступен html).
+Это можно сделать двумя способами:
+1) размещать js в конце body (как мы делали раньше)
+2) размещать js в обработчике DOMContentLoaded -->
 <script type="text/javascript">
   document.addEventListener('DOMContentLoaded', function() {
     ... // код из предыдущего задания
