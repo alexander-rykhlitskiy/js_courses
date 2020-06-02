@@ -1,0 +1,60 @@
+<!-- ЗАДАНИЕ -->
+<!-- TODO app -->
+<!-- В самом простом виде это будет инпут для ввода задач и список задач с чекбоксами для маркировки задач как сделанных. -->
+<!-- Дальше можно добавлять: -->
+<!-- 1. Перечеркивание задачи при маркировке как сделанной -->
+<!-- 2. Удаление задач -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDo app</title>
+    <!-- <script src="script.js"></script> -->
+    <script type="text/javascript">
+      document.addEventListener("DOMContentLoaded", function() {
+        let textInput = document.querySelector('input');
+        let form = document.querySelector('form');
+        form.addEventListener("submit", function(event) {
+          event.preventDefault();
+          let ul = document.querySelector('ul');
+          let li = document.createElement('li');
+          li.textContent = textInput.value;
+          textInput.value = '';
+          ul.appendChild(li);
+
+
+          let inputCheckbox = document.createElement('input');
+          inputCheckbox.setAttribute('type', 'checkbox');
+          li.appendChild(inputCheckbox);
+
+          inputCheckbox.addEventListener('change', function(event) {
+            if (inputCheckbox.checked) {
+              li.style.textDecoration = 'line-through';
+            } else {
+              li.style.textDecoration = '';
+            }
+          })
+
+
+          let inputDelete = document.createElement('input');
+          inputDelete.setAttribute('type', 'submit');
+          inputDelete.value = 'Удалить';
+          li.appendChild(inputDelete);
+
+          inputDelete.addEventListener('click', function(event){
+            li.remove();
+          })
+        })
+      })
+    </script>
+</head>
+<body>
+  <form>
+    <input type="text">
+    <input type="submit">
+  </form>
+  <ul>
+  </ul>
+</body>
+</html>
