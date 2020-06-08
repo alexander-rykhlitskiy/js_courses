@@ -1,0 +1,114 @@
+<!-- ДЗ 1 -->
+<!-- Написать алгоритм, который переместит все нули в конец массива -->
+<!-- [8,10,0,7,2,0,1,2,1,0] => [8,10,7,2,1,2,1,0,0,0] -->
+<!-- https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/filter -->
+<script>
+  const numbers = [8,10,0,7,2,0,1,2,1,0];
+  numbers.filter(x => x !== 0).concat(numbers.filter(x => x === 0));
+</script>
+
+<!-- ДЗ 2 -->
+<!-- Отобрать только четные положительные числа -->
+<!-- [2,9,3,12,120,-11,3,20] => [2,12,120,20] -->
+<script>
+  const numbers = [2,9,3,12,120,-11,3,20];
+  numbers.filter(x => (x > 0) && (x % 2 === 0));
+</script>
+
+<!-- ДЗ 3 -->
+<!-- Написать функцию, которой на вход подается строка, на выход она дает символы наоборот (разворачивает строку).  -->
+<!-- "привет Женя" => "янеЖ тевирп" -->
+<script>
+  const string = "привет Женя";
+  string.split('').reverse().join('');
+</script>
+
+<!-- ДЗ 4 -->
+<!-- Написать функцию, которая будет возвращать из строки центральный(е) символ(ы) -->
+<!-- getMiddle("test") => "es" -->
+<!-- getMiddle("testing") => "t" -->
+<!-- getMiddle("middle") => "dd" -->
+<!-- getMiddle("A") => "A" -->
+<script>
+  function getMiddle(string) {
+    let result;
+    if (string.length % 2 == 1) {
+      result = string[Math.floor(string.length / 2)];
+    } else {
+      result = string[string.length / 2 - 1] + string[string.length / 2];
+    }
+    return result;
+  }
+  console.log(getMiddle("test"));
+  console.log(getMiddle("testing"));
+  console.log(getMiddle("middle"));
+  console.log(getMiddle("A"));
+</script>
+
+<!-- ДЗ 5 -->
+<!-- Есть массив пользователей (массив объектов) -->
+<!-- Надо отсортировать массив объектов по свойству name. Не забывайте, как себя ведет встроенная сортировка, чтобы ее улучшить нужна функция в качестве параметра, a и b во внутренней функции - это ячейки массива (в данном случае объекты). -->
+<!-- https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/sort -->
+<script>
+  let users = [
+    {
+      name: "Женя",
+      phone: "+375295011111",
+      operator: "МТС"
+    },
+    {
+      name: "Вася",
+      phone: "+375299876543",
+      operator: "МТС"
+    },
+    {
+      name: "Татьяна",
+      phone: "+375299001122",
+      operator: "Velcom"
+    },
+    {
+      name: "Аня",
+      phone: "+375291234567",
+      operator: "Velcom"
+    }
+  ];
+  users.sort((a, b) => a.name === b.name ? 0 : (a.name > b.name ? 1 : -1))
+</script>
+
+<!-- ДЗ 6 -->
+<!-- ToDo App -->
+<!-- Сохраним наши задачи, чтобы их можно было использовать в других вкладках -->
+<!-- https://learn.javascript.ru/localstorage -->
+<!-- https://learn.javascript.ru/json -->
+
+<script>
+  function loadData() {
+    if (localStorage.todoList) {
+      let array = JSON.parse(localStorage.todoList);
+      for (let textContent of array) {
+        addLi(textContent);
+      }
+    }
+  }
+
+  function addData() {
+   let result = [];
+    for (let element of document.querySelectorAll('li')){
+      result.push(element.textContent);
+    }
+    localStorage.todoList = JSON.stringify(result);
+  }
+
+  // Код из lesson_7.html
+
+  loadData();
+  let textInput = document.querySelector('input');
+  let form = document.querySelector('form');
+  form.addEventListener("submit", function(event) {
+    event.preventDefault();
+    addLi(textInput.value);
+    addData();
+    textInput.value = '';
+  })
+
+</script>
