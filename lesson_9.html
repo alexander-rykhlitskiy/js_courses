@@ -1,0 +1,175 @@
+<!-- ЗАДАНИЕ-ПОВТОРЕНИЕ -->
+<!-- Задать в коде объект пользователя с полями name, age. -->
+<!-- Отобразить этот объект в html вида: -->
+<body>
+  <div class="user">
+    <div>ИМЯ ПОЛЬЗОВАТЕЛЯ ЗДЕСЬ</div>
+  </div>
+</body>
+<!-- Изначально html страницы пустой. Он должен быть создан полностью средствами JS -->
+
+<script>
+  let user = { name: 'Mark', age: 25 };
+  let userDiv = document.createElement('div');
+  userDiv.className = 'user';
+  let nameDiv = document.createElement('div');
+  nameDiv.textContent = user.name;
+  userDiv.appendChild(nameDiv);
+  document.body.appendChild(userDiv);
+</script>
+
+<!-- ЗАДАНИЕ-ПОВТОРЕНИЕ -->
+<!-- Задать в коде массив объектов пользователей (например, из ДЗ 5 в этом файле). -->
+<!-- Задать в html код -->
+<style>
+  table, th, td {
+    border: 1px solid black;
+  }
+</style>
+
+<button>Добавить пользователей</button>
+<table>
+  <thead>
+    <tr>
+      <th>Имя</th>
+      <th>Телефон</th>
+      <th>Оператор</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+<!-- Добавлять всех пользователей в таблицу по клику на кнопку. -->
+<script>
+  function createTd(text) {
+    let result = document.createElement('td');
+    result.textContent = text;
+    return result;
+  }
+
+  function createTr(user) {
+    let result = document.createElement('tr');
+    for (let field in user) {
+      let td = createTd(user[field]);
+      result.appendChild(td);
+    }
+    return result;
+  }
+
+  let users = [
+    {
+      name: "Женя",
+      phone: "+375295011111",
+      operator: "МТС"
+    },
+    {
+      name: "Вася",
+      phone: "+375299876543",
+      operator: "МТС"
+    },
+    {
+      name: "Татьяна",
+      phone: "+375299001122",
+      operator: "Velcom"
+    },
+    {
+      name: "Аня",
+      phone: "+375291234567",
+      operator: "Velcom"
+    }
+  ];
+
+  document.querySelector('button').addEventListener('click', function(event) {
+    let tbody = document.querySelector('tbody');
+    for (let user of users) {
+      let tr = createTr(user);
+      tbody.appendChild(tr);
+    }
+  })
+</script>
+
+<!-- ЗАДАНИЕ-ПОВТОРЕНИЕ -->
+<!-- В цикле 3 раза попросить пользователя ввести имена используя функцию prompt. -->
+<!-- Сохранить имена в массив и записать в localStorage. -->
+<!-- При новой загрузке страницы, если в localStorage имена есть, показать каждое из них используя функцию alert. -->
+<script>
+  if (localStorage.names) {
+    let localNames = JSON.parse(localStorage.names);
+    localNames.forEach(name => alert(name));
+  }
+  let names = [];
+  for (let i = 0; i < 3; i++) {
+    names.push(prompt('Введите имя'));
+  }
+  localStorage.names = JSON.stringify(names);
+</script>
+
+<!-- Новый синтаксис JavaScript -->
+<!-- Декструктуризация -->
+<!-- https://learn.javascript.ru/destructuring -->
+<script>
+  let [firstName, lastName] = ["Илья", "Муромец"];
+  // Оператор "rest":
+  let [firstName, lastName, ...rest] = "Юлий Цезарь Император Рима".split(" ");
+
+  function log(a,b,c) {
+    console.log(a);
+    console.log(b);
+    console.log(c);
+  }
+  // Оператор "spread":
+  log(...[1,2,3]);
+
+  let options = {
+    title: "Меню",
+    width: 100,
+    height: 200
+  };
+
+  let {title, width, height} = options;
+</script>
+
+<!-- HTTP запросы на сервер -->
+<!-- https://learn.javascript.ru/xmlhttprequest -->
+<script>
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.onload = function() {
+    console.log(xmlHttp.responseText);
+  }
+  xmlHttp.open("GET", 'https://jsonplaceholder.typicode.com/todos/1');
+  xmlHttp.send();
+</script>
+
+<!-- ЗАДАНИЕ -->
+<!-- Дан html: -->
+<div></div>
+<!-- Достать по урлу из примера выше заголовок задачи и отобразить ее в div -->
+<script>
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.onload = function() {
+    let div = document.querySelector('div');
+    let json = JSON.parse(xmlHttp.responseText);
+    div.innerText = json.title;
+  }
+  xmlHttp.open("GET", 'https://jsonplaceholder.typicode.com/todos/1');
+  xmlHttp.send();
+</script>
+
+<!-- ЗАДАНИЕ -->
+<!-- Запросом на сервер достать первые 20 задач по этому урлу https://jsonplaceholder.typicode.com/todos -->
+<!-- Отобразить их списком ul на странице -->
+<script>
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.onload = function() {
+    let ul = document.createElement('ul');
+    document.body.appendChild(ul);
+    let tasks = JSON.parse(xmlHttp.responseText);
+    for (let i = 0; i < 20; i++) {
+      let li = document.createElement('li');
+      li.textContent = tasks[i].title;
+      ul.appendChild(li);
+    }
+  }
+  xmlHttp.open("GET", 'https://jsonplaceholder.typicode.com/todos');
+  xmlHttp.send();
+</script>
