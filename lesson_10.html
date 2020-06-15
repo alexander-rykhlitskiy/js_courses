@@ -1,4 +1,21 @@
 <!-- ЗАДАНИЕ-ПОВТОРЕНИЕ -->
+<!-- Достать все задачи по урлу https://todoappexamplejs.herokuapp.com/items -->
+<!-- Отобразить каждую в отдельном div в body. -->
+<script>
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.onload = function() {
+    let tasks = JSON.parse(xmlHttp.responseText);
+    for (let task of tasks) {
+      let div = document.createElement('div');
+      li.textContent = task.title;
+      document.body.appendChild(li);
+    }
+  }
+  xmlHttp.open("GET", 'https://todoappexamplejs.herokuapp.com/items');
+  xmlHttp.send();
+</script>
+
+<!-- ЗАДАНИЕ -->
 <!-- Что выведет этот код -->
 <script>
   let a = 10;
@@ -6,8 +23,9 @@
   b = 5;
   console.log(a);
 </script>
+<!-- https://github.com/alexander-rykhlitskiy/myfreedom_lessons/blob/master/images/lesson_10_variable-wire.jpg -->
 
-<!-- ЗАДАНИЕ-ПОВТОРЕНИЕ -->
+<!-- ЗАДАНИЕ -->
 <!-- https://learn.javascript.ru/object#kopirovanie-po-ssylke -->
 <!-- Что выведет этот код -->
 <script>
@@ -16,11 +34,261 @@
   b.name = 'sergei';
   console.log(a);
 </script>
+<!-- https://github.com/alexander-rykhlitskiy/myfreedom_lessons/blob/master/images/lesson_10_variable-wire-object.jpg -->
 
-
-<!-- ЗАДАНИЕ-ПОВТОРЕНИЕ -->
+<!-- ЗАДАНИЕ -->
 <!-- https://habr.com/ru/company/ruvds/blog/506566/ -->
 <!-- Что выведет этот код -->
 <script>
-  ['1', '7', '11'].map(parseInt);
+  console.log(['1', '7', '11'].map(Number));
+  console.log(['1', '7', '11'].map(parseInt));
+</script>
+
+<script>
+  ['1', '7', '11'].map((currentValue, index, array) => parseInt(currentValue, index, array));
+</script>
+
+<!-- reduce -->
+<!-- https://learn.javascript.ru/array-iteration#reduce-reduceright -->
+<script>
+  [1,2,3,4,5].reduce((total, x) => {
+    console.log(total, x);
+    return total + x;
+  });
+
+  [1,2,3,4,5].reduce((total, x) => {
+    console.log(total, x);
+    return total + x;
+  }, 10);
+
+  [1,2,3,4,5].reduce((total, x) => {
+    total[x] = x;
+    return total;
+  }, {})
+</script>
+
+<!-- ЗАДАНИЕ -->
+<!-- Из массива строк сформировать объект, в котором ключи (имена полей) - это строки, значения - длины строк -->
+<!-- ['1', '22'] => { '1': 1, '22': 2 } -->
+<script>
+  ['A', 'АГ', 'tom', 'alex'].reduce((total, x) => {
+    total[x] = x.length;
+    return total;
+  }, {});
+</script>
+
+<!-- ЗАДАНИЕ -->
+<!-- Перемножить все элементы массива. -->
+<script>
+  [1,2,3,4,5].reduce((total, x) => total * x);
+</script>
+
+<!-- Замыкания -->
+<!-- https://habr.com/ru/company/ruvds/blog/424967/ -->
+<script>
+  let a = 'global';
+    function outer() {
+      let b = 'outer';
+      function inner() {
+        let c = 'inner'
+        console.log(c);   // 'inner'
+        console.log(b);   // 'outer'
+        console.log(a);   // 'global'
+      }
+      console.log(a);     // 'global'
+      console.log(b);     // 'outer'
+      inner();
+    }
+  outer();
+  console.log(a);         // 'global'
+</script>
+
+<script>
+  function person() {
+    let name = 'Peter';
+
+    return function displayName() {
+      console.log(name);
+    };
+  }
+  let peter = person();
+  peter(); // 'Peter'
+</script>
+
+<!-- ЗАДАНИЕ -->
+<!-- Создать функцию. В функции объявляется переменная counter, значение которой - 0. -->
+<!-- Эта функция возвращает функцию, которая увеличивает counter на 1 и возвращает его значение. -->
+<script>
+  function getCounter() {
+    let counter = 0;
+    return function() {
+      counter += 1;
+      return counter;
+    }
+  }
+  let count = getCounter();
+  console.log(count());
+</script>
+
+<!-- Разные методы запросов -->
+<script>
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.onload = function() {
+    document.body.innerText = xmlHttp.responseText;
+  }
+
+  // GET
+  xmlHttp.open("GET", 'https://todoappexamplejs.herokuapp.com/items');
+  xmlHttp.setRequestHeader('Accept', 'application/json')
+  xmlHttp.send();
+
+  // POST
+  xmlHttp.open("POST", 'https://todoappexamplejs.herokuapp.com/items');
+  xmlHttp.setRequestHeader('Content-Type', 'application/json')
+  xmlHttp.setRequestHeader('Accept', 'application/json')
+  xmlHttp.send('{"title": "Title", "done": true, "category": "cat"}');
+
+  // PUT
+  xmlHttp.open("PUT", 'https://todoappexamplejs.herokuapp.com/items/2');
+  xmlHttp.setRequestHeader('Content-Type', 'application/json')
+  xmlHttp.setRequestHeader('Accept', 'application/json')
+  xmlHttp.send('{"title": "New Title"}');
+
+  // DELETE
+  xmlHttp.open("DELETE", 'https://todoappexamplejs.herokuapp.com/items/12');
+  xmlHttp.setRequestHeader('Accept', 'application/json')
+  xmlHttp.send();
+</script>
+
+<!-- ЗАДАНИЕ -->
+<!-- При загрузке страницы создавать задачу методом POST. Title - ваше имя -->
+<!-- Возвращаемое после запроса JSON содержимое записать в тег div. -->
+
+<!-- Добавить кнопку "Обновить", при нажатии на которую отправляется запрос PUT на урл "https://todoappexamplejs.herokuapp.com/items/${id, который пришел в ответе на POST запрос}". -->
+<!-- Тело запроса - JSON, в котором title - текущее время. -->
+<!-- После обновления текст кнопки нужно проставить в "Обновлено". -->
+
+<!-- Добавить кнопку "Удалить", при нажатии на которую отправляется запрос DELETE на урл из предыдущей подзадачи, но уже без тела запроса. -->
+<!-- После удаления текст кнопки нужно проставить в "Удалено". -->
+
+<!-- Результат каждого шага проверять на этой странице https://todoappexamplejs.herokuapp.com/items -->
+
+<!-- Начальный HTML: -->
+<body>
+    <div></div>
+    <button class='update'>Обновить</button>
+    <button class='delete'>Удалить</button>
+</body>
+
+<script>
+  let xmlHttp = new XMLHttpRequest();
+  xmlHttp.onload = function() {
+    document.body.querySelector('div').innerText = xmlHttp.responseText;
+  }
+  // POST
+  xmlHttp.open("POST", 'https://todoappexamplejs.herokuapp.com/items');
+  xmlHttp.setRequestHeader('Content-Type', 'application/json')
+  xmlHttp.setRequestHeader('Accept', 'application/json')
+  xmlHttp.send(JSON.stringify({ title: "alex"}));
+
+  let updateButton = document.querySelector('.update');
+  updateButton.addEventListener('click', function() {
+    let xmlHttp = new XMLHttpRequest();
+    xmlHttp.onload = () => updateButton.innerText = 'Обновлено';
+    // PUT
+    let id = JSON.parse(document.body.querySelector('div').innerText).id;
+    xmlHttp.open("PUT", 'https://todoappexamplejs.herokuapp.com/items/' + id);
+    xmlHttp.setRequestHeader('Content-Type', 'application/json')
+    xmlHttp.setRequestHeader('Accept', 'application/json')
+    xmlHttp.send(JSON.stringify({ title: new Date }));
+  })
+
+  let deleteButton = document.querySelector('.delete');
+  deleteButton.addEventListener('click', function() {
+    let xmlHttp = new XMLHttpRequest();
+    xmlHttp.onload = () => deleteButton.innerText = 'Удалено';
+    // DELETE
+    let id = JSON.parse(document.body.querySelector('div').innerText).id;
+    xmlHttp.open("DELETE", 'https://todoappexamplejs.herokuapp.com/items/' + id);
+    xmlHttp.setRequestHeader('Accept', 'application/json')
+    xmlHttp.send();
+  })
+</script>
+
+<!-- Промисы -->
+<!-- https://learn.javascript.ru/promise -->
+<!-- setTimeout(() => console.log(1), 1000) -->
+<!-- ЗАДАНИЕ -->
+<!-- С периодичностью 1000 мс 3 раза выводить в консоль число 1. -->
+<script>
+  setTimeout(() => {
+    console.log(1)
+    setTimeout(() => {
+      console.log(1)
+      setTimeout(() => {
+        console.log(1)
+      }, 1000);
+    }, 1000);
+  }, 1000);
+</script>
+
+<!-- То же самое с промисами -->
+<script>
+  function log() {
+    let result = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        console.log(1);
+        resolve();
+      }, 1000)
+    });
+    return result;
+  }
+
+  log().then(log).then(log); // так называемая цепочка промисов
+</script>
+
+<!-- ЗАДАНИЕ -->
+<!-- Создать функцию для отправки http GET запроса. Функция должна возвращать что-то, что можно использовать для отображения ответа. -->
+<script>
+  function httpGet(url) {
+    return new Promise(function(resolve, reject) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', url);
+
+      xhr.onload = function() {
+        resolve(this.response);
+      };
+
+      xhr.send();
+    });
+  }
+
+  let promise = httpGet('https://todoappexamplejs.herokuapp.com/items/2.json');
+  promise.then(response => document.body.innerText = response)
+</script>
+
+<!-- Полный пример с обработкой ошибок -->
+<script>
+  function httpGet(url) {
+    return new Promise(function(resolve, reject) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', url);
+
+      xhr.onload = function() {
+        if (this.status == 200) {
+          resolve(this.response);
+        } else {
+          var error = new Error(this.statusText);
+          error.code = this.status;
+          reject(error);
+        }
+      };
+
+      xhr.onerror = function() {
+        reject(new Error("Network Error"));
+      };
+
+      xhr.send();
+    });
+  }
 </script>
