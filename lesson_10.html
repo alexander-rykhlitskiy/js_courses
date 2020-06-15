@@ -7,11 +7,12 @@
     let tasks = JSON.parse(xmlHttp.responseText);
     for (let task of tasks) {
       let div = document.createElement('div');
-      li.textContent = task.title;
-      document.body.appendChild(li);
+      div.textContent = task.title;
+      document.body.appendChild(div);
     }
   }
   xmlHttp.open("GET", 'https://todoappexamplejs.herokuapp.com/items');
+  xmlHttp.setRequestHeader('Accept', 'application/json')
   xmlHttp.send();
 </script>
 
@@ -23,6 +24,7 @@
   b = 5;
   console.log(a);
 </script>
+<!-- Другая удобная метафора для описания переменных: переменная - не ящик, а провод, который связывает имя переменной со значением. -->
 <!-- https://github.com/alexander-rykhlitskiy/myfreedom_lessons/blob/master/images/lesson_10_variable-wire.jpg -->
 
 <!-- ЗАДАНИЕ -->
@@ -34,6 +36,7 @@
   b.name = 'sergei';
   console.log(a);
 </script>
+<!-- К проводу-переменной добавляется провод-указатель: -->
 <!-- https://github.com/alexander-rykhlitskiy/myfreedom_lessons/blob/master/images/lesson_10_variable-wire-object.jpg -->
 
 <!-- ЗАДАНИЕ -->
@@ -218,7 +221,7 @@
 <!-- Промисы -->
 <!-- https://learn.javascript.ru/promise -->
 <!-- setTimeout(() => console.log(1), 1000) -->
-<!-- ЗАДАНИЕ -->
+<!-- ЗАДАНИЕ (сложное и непонятное, но необходимое для описания проблемы, которую решают промисы) -->
 <!-- С периодичностью 1000 мс 3 раза выводить в консоль число 1. -->
 <script>
   setTimeout(() => {
@@ -235,11 +238,13 @@
 <!-- То же самое с промисами -->
 <script>
   function log() {
-    let result = new Promise((resolve, reject) => {
-      setTimeout(() => {
+    let result = new Promise((resolve) => {
+      let fun = () => {
         console.log(1);
         resolve();
-      }, 1000)
+      }
+
+      setTimeout(fun, 1000)
     });
     return result;
   }
@@ -247,7 +252,7 @@
   log().then(log).then(log); // так называемая цепочка промисов
 </script>
 
-<!-- ЗАДАНИЕ -->
+<!-- ЗАДАНИЕ (немного понятнее предыдущего) -->
 <!-- Создать функцию для отправки http GET запроса. Функция должна возвращать что-то, что можно использовать для отображения ответа. -->
 <script>
   function httpGet(url) {
