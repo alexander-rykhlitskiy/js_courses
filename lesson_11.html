@@ -1,0 +1,149 @@
+<!-- ЗАДАНИЕ-ПОВТОРЕНИЕ -->
+<!-- При нажатии на кнопку "Обновить" отправляется запрос PUT на урл "https://todoappexamplejs.herokuapp.com/items/85". -->
+<!-- Тело запроса - JSON, в котором title - ваше имя. -->
+<!-- После обновления распарсить JSON-ответ, достать оттуда поле updated_at и проставить его в div, который необходимо создать и добавить на страницу. -->
+
+<!-- Начальный HTML: -->
+<body>
+    <button class='update'>Обновить</button>
+</body>
+
+<script>
+  let updateButton = document.querySelector('.update');
+  updateButton.addEventListener('click', function() {
+    let xmlHttp = new XMLHttpRequest();
+    xmlHttp.onload = () => {
+      let response = JSON.parse(xmlHttp.responseText);
+      let div = document.createElement('div');
+      document.body.append(div);
+      div.innerText = response.updated_at;
+    }
+    xmlHttp.open("PUT", 'https://todoappexamplejs.herokuapp.com/items/85');
+    xmlHttp.setRequestHeader('Content-Type', 'application/json')
+    xmlHttp.setRequestHeader('Accept', 'application/json')
+    xmlHttp.send(JSON.stringify({ title: 'alex' }));
+  })
+</script>
+
+<!-- ЗАДАНИЕ-ПОВТОРЕНИЕ -->
+<!-- Составить массив строк из текстов элементов li. Реализовать нужно используя функцию map. Вывести массив в консоль -->
+<!-- Заданный HTML: -->
+<body>
+  <ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+  </ul>
+</body>
+
+<script>
+  console.log([...document.querySelectorAll('li')].map(li => li.textContent))
+</script>
+
+<!-- fetch -->
+<script>
+  let promise = fetch('https://todoappexamplejs.herokuapp.com/items/40');
+  let secondPromise = promise.then(response => response.json());
+  secondPromise.then(data => console.log(data))
+
+  // Или с заголовками
+  fetch('https://todoappexamplejs.herokuapp.com/items/40', {
+    headers: {
+      'Accept': 'application/json'
+    }
+  })
+    .then(response => response.json())
+    .then(data => console.log(data));
+
+  // Отправка PUT запроса
+  let promise = fetch('https://todoappexamplejs.herokuapp.com/items/40', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Acceptt': 'application/json'
+    },
+    body: JSON.stringify({ title: 'alex' })
+  })
+    .then(response => response.json())
+    .then(data => console.log(data));
+</script>
+
+<!-- ЗАДАНИЕ -->
+<!-- При загрузке страницы загружать из урла все задачи по урлу 'https://todoappexamplejs.herokuapp.com/items -->
+<!-- Каждую задачу отображать отдельным элементом li. Содержимое li - div с JSON-ом задачи -->
+
+<!-- ЗАДАНИЕ -->
+<!-- Добавить в каждый li кнопку "Удалить". При нажатии на эту кнопку отправляется DELETE запрос, который удалит задачу. Также этот li нужно удалить со страницы -->
+<!-- Для получения урла можно к урлу https://todoappexamplejs.herokuapp.com/items/ добавить id из JSON-а в теге div. Получится урл https://todoappexamplejs.herokuapp.com/items/123 -->
+
+
+<!-- ЗАДАНИЕ -->
+<!-- Добавить в каждый li тег input и кнопку "Обновить". При нажатии на эту кнопку отправляется PUT запрос, который должен проставить в title содержимое инпута. -->
+
+
+<!-- ЗАДАНИЕ -->
+<!-- Реализовать функцию httpGet из предыдущего занятия, который принимает урл и возвращает что-то, на чем можно вызвать then и передать туда функцию, которая выполнится, когда запрос завершится. Т.о. должен работать следующий код -->
+<script>
+  const url = 'https://todoappexamplejs.herokuapp.com/items/40';
+  httpGet(url).then(response => document.body.textContent = response);
+</script>
+
+
+<!-- Нужно помнить, что никакой магии не существует. Простейший промис можно реализовать следующим образом -->
+<script>
+  function httpGet(url) {
+    let result = {
+      then(callback) {
+        this.callback = callback;
+      }
+    }
+
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onload = function() {
+      result.callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", url);
+    xmlHttp.setRequestHeader('Accept', 'application/json')
+    xmlHttp.send();
+    return result;
+  }
+</script>
+
+<!-- ЗАДАНИЕ -->
+<!-- Релизовать функцию httpGet, с которой будет выполняться следующий код -->
+<script>
+  let promise = httpGet('https://todoappexamplejs.herokuapp.com/items/40')
+  setTimeout(() => promise.then(response => document.body.textContent = response), 2000)
+</script>
+
+<!-- Возможная реализация -->
+<script>
+  function httpGet(url) {
+    let result = {
+      callCallback(response) {
+        if (this.callback) {
+          callback(response)
+        } else {
+          this.response = response;
+        }
+      },
+      then(callback) {
+        if (this.response) {
+          callback(this.response)
+        } else {
+          this.callback = callback;
+        }
+      }
+    }
+
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onload = function() {
+      result.callCallback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", url);
+    xmlHttp.setRequestHeader('Accept', 'application/json')
+    xmlHttp.send();
+    return result;
+  }
+</script>
+
