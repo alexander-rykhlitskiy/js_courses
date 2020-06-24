@@ -55,6 +55,7 @@ class GetRequest extends BaseRequest {
 
 class PutRequest extends BaseRequest {
   constructor(id, body) {
+    super(id, body);
     this.body = body;
   }
 
@@ -63,12 +64,16 @@ class PutRequest extends BaseRequest {
   }
 
   _requestOptions() {
-    return {...super._requestOptions, ...{ body: body }};
+    return {...super._requestOptions(), ...{ body: JSON.stringify(this.body) }};
   }
 }
 
 let request = new GetRequest(118);
 request.perform().then(data => console.log(data))
+
+let putRequest = new PutRequest(118, { title: 'blabla' });
+putRequest.perform().then(data => console.log(data))
+
 
 // ЗАДАНИЕ-ПОВТОРЕНИЕ
 // Реализовать функцию mul, которая принимает 1 параметр, number.
@@ -100,7 +105,7 @@ document.querySelector('button').addEventListener('click', function(event) {
 
 // Или используя async-await
 
-async function request() {
+function request() {
   return fetch('https://todoappexamplejs.herokuapp.com/items/118.json');
 }
 document.querySelector('button').addEventListener('click', async function(event) {
@@ -140,52 +145,10 @@ document.querySelector('button').addEventListener('click', async function(event)
   console.log(data);
 })
 
-// https://stackoverflow.com/questions/597588/how-do-you-clone-an-array-of-objects-in-javascript
 // Shallow copy массива
+// https://stackoverflow.com/questions/597588/how-do-you-clone-an-array-of-objects-in-javascript
 let a = [1,2,3];
 let b = a.slice(0);
 
 // Deep copy массива
 JSON.parse(JSON.stringify(nodesArray));
-
-// try-catch
-// https://learn.javascript.ru/try-catch
-try {
-  console.log(1);
-  noFunction();
-  console.log(2);
-} catch(e) {
-  console.log('Ошибка')
-} finally {
-  console.log('Конец');
-}
-
-try {
-  let error = new Error('Что-то странное');
-  throw error
-} catch(e) {
-  console.log(e);
-}
-
-if (e instanceof ReferenceError) {
-  // ReferenceError action here
-}
-
-document.querySelector('button').addEventListener('click', async function(event) {
-  try {
-    let fetchPromise = await fetch('no_such_url');
-    console.log(await fetchPromise.json())
-  } catch(e) {
-    console.log('Произошла ошибка');
-    console.log(e);
-  }
-})
-
-// Всплытие
-// https://learn.javascript.ru/bubbling-and-capturing
-document.querySelector('button').addEventListener('click', function(event) {
-  console.log(this);
-})
-document.querySelector('body').addEventListener('click', function(event) {
-  console.log(this);
-})
