@@ -147,19 +147,6 @@ Promise.race([
 ]).then(alert); // 1
 
 
-// Всплытие (bubbling)
-// https://learn.javascript.ru/bubbling-and-capturing
-document.querySelector('button').addEventListener('click', function(event) {
-  console.log(this);
-})
-document.querySelector('body').addEventListener('click', function(event) {
-  console.log(this);
-})
-
-// bubbling останавливается при помощи event.stopPropagation()
-
-// REST API
-
 // ЗАДАНИЕ
 // Описать в html 3 вложенных div с разными классами.
 // На каждый из них повесить обработчик кликов, в котором выводить в консоль тип события и номер div (1,2,3).
@@ -192,9 +179,11 @@ document.querySelector('body').addEventListener('click', function(event) {
 // 3.6 Зайти на https://github.com/settings/keys. Нажать "New SSH key". Вставить тот вывод в поле "Key". Нажать "Add SSH key"
 // 3.7 Вернуться в окно git bash. Выполнить "ssh -T git@github.com". Написать yes, нажать enter. Должно показаться ваше имя пользователя на github
 // 3.8 Запустить "ssh-agent"
-// 3.9 Зайти на страницу вашего проекта на github. Нажать "Clone". Скопировать урл вида git@github.com:....
+// 3.9 Зайти на страницу вашего проекта на github. Нажать "Clone". Скопировать урл вида git@github.com:.... ВАЖНО: урл должен начинаться на git@github.com
 // 3.10 Запустить в git bash "git clone скопированный_урл"
 // 3.11 Запустить ls. В выведенном списке должна быть папка вашего проекта с github
+
+// Вместо git bash можно использовать Github Desktop https://www.youtube.com/watch?v=hyUBMmL0WtA
 
 // Настройка на Mac OSX:
 // nodejs
@@ -205,4 +194,5 @@ document.querySelector('body').addEventListener('click', function(event) {
 // 2. те же пункты, что и для windows, но начиная с 3.1. Запускать приложение terminal. Вместо диска использовать /users/ВашеИмя/
 
 // Настройка на линуксе:
-// вы, видимо, разберетесь сами
+// установить git
+// установить nodejs
