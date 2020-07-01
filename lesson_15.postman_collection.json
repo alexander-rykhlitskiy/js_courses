@@ -1,0 +1,139 @@
+{
+	"info": {
+		"name": "Courses",
+		"_postman_id": "03148785-a3af-2b09-ebdc-f7a811f77f9c",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Получить todo items",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://todoappexamplejs.herokuapp.com/items",
+					"protocol": "http",
+					"host": [
+						"todoappexamplejs",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"items"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Обновить",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"title\": \"sasha\"}"
+				},
+				"url": {
+					"raw": "https://todoappexamplejs.herokuapp.com/items/153",
+					"protocol": "https",
+					"host": [
+						"todoappexamplejs",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"items",
+						"153"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Создать",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"title\": \"sasha\", \"category\": \"sasha\"}"
+				},
+				"url": {
+					"raw": "https://todoappexamplejs.herokuapp.com/items/",
+					"protocol": "https",
+					"host": [
+						"todoappexamplejs",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"items",
+						""
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Удалить",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://todoappexamplejs.herokuapp.com/items/162",
+					"protocol": "https",
+					"host": [
+						"todoappexamplejs",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"items",
+						"162"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
