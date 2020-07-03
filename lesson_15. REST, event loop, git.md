@@ -80,6 +80,8 @@ document.querySelector('body').addEventListener('click', function(event) {
 ```
 
 ## Event loop
+https://learn.javascript.ru/event-loop
+
 ЗАДАНИЕ
 
 В html написать текст. По клику на текст (body) вызывать обработчик, который в цикле 10000000 раз возводит счетчик цикла в степень счетчика.
@@ -189,22 +191,4 @@ git add .
 git commit -m 'Add new file'
 git push
 # Посмотреть изменение на https://github.com/alexander-rykhlitskiy/js_courses
-```
-
-## Nodejs
-https://monsterlessons.com/project/lessons/webpack-2-ustanovka-i-nastrojka
-```bash
-npm init
-npm install webpack --dev
-# заполнить содержимое файла webpack.config.js
-# создать src/app.js
-# добавить `"build": "webpack"` в файл package.json
-npm run build
-# создать файл index.html
-# Запустим и посмотрим
-npm install lodash --save
-# использовать _.isEqual(1,2)
-
-npm install babel-loader babel-core babel-preset-es2015 --save-dev
-npm install @babel/core --save-dev
 ```
