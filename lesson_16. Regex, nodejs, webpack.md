@@ -118,7 +118,7 @@ npm install webpack --save-dev
 npm run build # возможно, 2 раза
 # создать файл index.html
 # Запустим и посмотрим
-npm install lodash --save
+npm install lodash
 # добавить в app.json import _ from 'lodash'
 # использовать _.isEqual(1,2)
 
