@@ -111,7 +111,7 @@ str.replace(/\+[\d-]{7,}/, 'телефон')
 https://monsterlessons.com/project/lessons/webpack-2-ustanovka-i-nastrojka
 ```bash
 npm init
-npm install webpack --dev
+npm install webpack --save-dev
 # заполнить содержимое файла webpack.config.js
 # создать src/app.js с простым кодом
 # добавить `"build": "webpack"` в scripts в файл package.json
