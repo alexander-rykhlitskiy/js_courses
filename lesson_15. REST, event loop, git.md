@@ -80,7 +80,8 @@ document.querySelector('body').addEventListener('click', function(event) {
 ```
 
 ## Event loop
-https://learn.javascript.ru/event-loop
+https://learn.javascript.ru/event-loop \
+https://habr.com/ru/company/ruvds/blog/340508/
 
 ЗАДАНИЕ
 
@@ -185,10 +186,10 @@ git log
 ```bash
 # Открыть страницу вашего репозитория. Например, https://github.com/alexander-rykhlitskiy/js_courses
 # Нажать "Clone" и скопировать урл, который начинается с git@
-git clone git@github.com:alexander-rykhlitskiy/js_courses.git
+git clone url # url - путь вида git@github.com:alexander-rykhlitskiy/js_courses.git, к которому у вас есть доступ
 # Добавить файл с содержимым
 git add .
 git commit -m 'Add new file'
 git push
-# Посмотреть изменение на https://github.com/alexander-rykhlitskiy/js_courses
+# Посмотреть изменение на url
 ```
