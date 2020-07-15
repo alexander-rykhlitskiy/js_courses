@@ -14,7 +14,7 @@ serve
 
 Можно ставить и другие полезные глобальные пакеты
 ```bash
-npm install tldr
+npm install -g tldr
 ```
 
 `index.html`:
@@ -95,47 +95,14 @@ import defaultExport from './signIn.js'
 ЗАДАНИЕ \
 Реализовать автомастерскую используя импорты модулей.
 
-## Tests
+## Git
+```bash
+git checkout -b new-branch
+git checkout master
+git checkout 4455d856
 
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <!-- добавим стили mocha для отображения результатов -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.css">
-  <!-- добавляем сам фреймворк mocha -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.js"></script>
-  <script>
-    // включаем режим тестирования в стиле BDD
-    mocha.setup('bdd');
-  </script>
-  <!-- добавим chai -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.js"></script>
-  <script>
-    // chai предоставляет большое количество функций. Объявим assert глобально
-    let assert = chai.assert;
-  </script>
-</head>
-
-<body>
-
-  <script>
-    function pow(x, n) {
-      /* Здесь будет реализация функции, пока пусто */
-    }
-  </script>
-
-  <!-- скрипт со спецификацией (describe, it...) -->
-  <script src="test.js"></script>
-
-  <!-- элемент с id="mocha" будет содержать результаты тестов -->
-  <div id="mocha"></div>
-
-  <!-- запускаем тесты! -->
-  <script>
-    mocha.run();
-  </script>
-</body>
-
-</html>
+tldr git push
+tldr git pull
+tldr git commit
+tldr git checkout
 ```
