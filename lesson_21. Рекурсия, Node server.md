@@ -61,7 +61,38 @@ function fib(x){
 ```
 
 ## Server
+#### Простой скрипт для скачивания страницы html
 
+```bash
+npm install node-fetch
+```
+
+```js
+console.log(123)
+
+const fetch = require('node-fetch');
+const fs = require('fs');
+
+fetch('https://google.com')
+  .then(response => response.text())
+  .then(data => fs.writeFile('google.html', data, (err) => { if (err) { console.log(err) } }));
+```
+
+В nodejs есть экспериментальная поддержка import.
+1. нужно переименовать файл в mjs (import можно использовать только в модулях)
+2. запускать файл нужно не командой `node script.js`, а командой `node --experimental-modules script.mjs`
+3.
+```js
+import fetch from 'node-fetch';
+import fs from 'fs';
+```
+вместо
+```js
+const fetch = require("node-fetch");
+const fs = require('fs');
+```
+
+#### HTTP сервер
 ```bash
 mkdir todo_server
 npm init
