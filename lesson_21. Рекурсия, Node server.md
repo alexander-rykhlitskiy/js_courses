@@ -76,14 +76,19 @@ git commit -m 'Implement simple server'
 
 `server.js`:
 ```js
+// сторонняя библиотека https://expressjs.com/
 const express = require('express');
+// сторонняя библиотека https://www.npmjs.com/package/body-parser
 const bodyParser = require('body-parser');
+// сторонняя библиотека https://expressjs.com/en/resources/middleware/cors.html
 const cors = require('cors');
+// fs - встроенный модуль nodejs
 const fs = require('fs');
-const itemsFileName = 'items.json'
 
+const itemsFileName = 'items.json'
 let items = [];
 let uniqueId = 0;
+// https://nodejs.org/en/knowledge/file-system/how-to-read-files-in-nodejs/
 fs.readFile(itemsFileName, 'utf8', function (err, data) {
   if (err) {
     return console.log(err);
@@ -95,6 +100,7 @@ fs.readFile(itemsFileName, 'utf8', function (err, data) {
 
 
 function saveItems(res, successCallback) {
+  // https://nodejs.org/en/knowledge/file-system/how-to-write-files-in-nodejs/
   fs.writeFile(itemsFileName, JSON.stringify(items), function (err) {
     if (err) {
       res.status(500).send(err)
@@ -106,6 +112,7 @@ function saveItems(res, successCallback) {
 
 var app = express();
 
+// Подключаем к express.js дополнительные библиотеки body-parser и cors
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
@@ -168,5 +175,7 @@ app.delete('/api/items/:itemId', function (req, res) {
   saveItems(res, () => res.status(204).send())
 });
 
+// Запустить процесс и "слушать" на порту под номером 3010
+// https://ru.wikibooks.org/wiki/TCP/IP
 app.listen(3010);
 ```
