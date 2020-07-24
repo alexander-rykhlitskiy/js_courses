@@ -51,8 +51,8 @@ console.log(result);
 
 // Что если нам нужно создать не 1 массив, а 10?
 
-// Описание простых функций.
-// ЧТО НУЖНО ЗНАТЬ
+// Функции.
+// https://learn.javascript.ru/function-basics
 // Мы уже знаем, что prompt и alert - это функции.
 // При этом обе эти функции принимают один параметр - строку, которая должна отобразиться в появившемся диалоге.
 
@@ -99,11 +99,14 @@ var name = "banana"; // объявление локальной переменн
 // которое не пересекается с другими переменными price
 function calcPrice(kilometers, minutes) {
   var price = 2;
-  price = price + kilometers * 0.3;
-  price = price + minutes * 0.1;
+  // price = price + kilometers * 0.3;
+  // price = price + minutes * 0.1;
+  console.log('var price = ' + price)
   if (true) {
-    let price = 5;
+    let price = 5; // эта переменная не влияет на переменную var price, объявленную выше. В этом блоке используется только переменная let price.
+    console.log('let price = ' + price)
   }
+  console.log('var price = ' + price)
   return price;
 }
 
