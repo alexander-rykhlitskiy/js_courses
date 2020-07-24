@@ -155,7 +155,11 @@ user.name = 'alex'
 user['name'] //=> 'alex'
 
 // Эти объекты удобно объединять в массивы.
-let users = [{ name: 'alex', age: 18, gender: 'male' }, { name: 'sergei', age: 20, gender: 'male' }, { name: 'masha', age: 24, gender: 'female' }]
+let users = [
+  { name: 'alex', age: 18, gender: 'male' },
+  { name: 'sergei', age: 20, gender: 'male' },
+  { name: 'masha', age: 24, gender: 'female' }
+]
 // И сейчас управление этими 9 значениями уже не кажется таким сложным.
 
 // Object
