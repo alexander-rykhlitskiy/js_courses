@@ -109,3 +109,15 @@ function calcPrice(kilometers, minutes) {
 
 // ЗАДАНИЕ
 // Написать функцию, которая принимает массив чисел и возвращает максимальное число из массива.
+
+function getMax(numbers) {
+  let max = numbers[0];
+  for (let i = 0; i < numbers.length; i++) {
+    if (numbers[i] > max) {
+      max = numbers[i];
+    }
+  }
+  return max;
+}
+
+getMax([1,4,3,8,4])
