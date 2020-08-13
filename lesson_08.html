@@ -1,3 +1,130 @@
+Событие `mousemove` \
+ЗАДАНИЕ \
+Задать в html прямоугольный div. Также задать массив цветов. По наведению мышки div, его цвет должен меняться на следующий из массива
+
+
+<!-- ЗАДАНИЕ-ПОВТОРЕНИЕ -->
+<!-- В разметке предусмотреть <div class='content'></div> и кнопку. -->
+<!-- При нажатии на кнопку в существующий div должен добавляться новый div с классом item и содержимым, равным времени клика -->
+
+<!-- ЗАДАНИЕ -->
+<!-- TODO app -->
+<!-- См. первую версию в lesson_6.html -->
+
+<!-- Перед тем, как продолжить добавлять новые функции, сделаем код понятнее. -->
+<!-- Представьте, что вы покупаете в магазине книгу "Изучаем JavaScript". -->
+<!-- Чтобы быстро понять, о чем там написано, вы смотрите содержание. -->
+<!-- Код (как и содержание) должен состоять из функций верхнего уровня (пунктов содержания) для того, чтобы можно было быстро понять, что делает этот код. -->
+<!-- Ведь и без деталей понятно, что делает код
+addCheckbox(li);
+addDeleteButton(li);
+-->
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function() {
+    function addCheckbox(li) {
+      let inputCheckbox = document.createElement('input');
+      inputCheckbox.setAttribute('type', 'checkbox');
+      li.appendChild(inputCheckbox);
+
+      inputCheckbox.addEventListener('change', function(event) {
+        if (inputCheckbox.checked) {
+          li.style.textDecoration = 'line-through';
+        } else {
+          li.style.textDecoration = '';
+        }
+      })
+    }
+
+    function addDeleteButton(li) {
+      let inputDelete = document.createElement('input');
+      inputDelete.setAttribute('type', 'submit');
+      inputDelete.value = 'Удалить';
+      li.appendChild(inputDelete);
+
+      inputDelete.addEventListener('click', function(event){
+        li.remove();
+      })
+    }
+
+    function createLi(text) {
+      let li = document.createElement('li');
+      li.textContent = text;
+      return li;
+    }
+
+    function addLi(text) {
+      let ul = document.querySelector('ul');
+      let li = createLi(text);
+      ul.appendChild(li);
+
+      addCheckbox(li);
+      addDeleteButton(li);
+    }
+
+    let textInput = document.querySelector('input');
+    let form = document.querySelector('form');
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      addLi(textInput.value);
+      textInput.value = '';
+    })
+  })
+</script>
+
+<!-- ЗАДАНИЕ -->
+<!-- Добавить кнопку, которая помечает все задачи как сделанные -->
+<!-- 1. Добавить тег button в html код -->
+<!-- 2. Повесить обработчик события click на добавленную кнопку -->
+<!-- 3. В обработчике найти все существующие теги li при помощи функции document.querySelectorAll -->
+<!-- 4. В цикле обойти найденные в пункте 3 теги li. Каждому проставить li.style.textDecoration = 'line-through'; -->
+
+<input type="submit" value="Пометить всё как сделанное" class='mark-all-as-done'>
+
+<script>
+  function markAllAsDone(event) {
+    for (let li of document.querySelectorAll('ul li')) {
+      li.style.textDecoration = 'line-through';
+      li.querySelector('input').checked = true;
+    }
+  }
+  document.querySelector('.mark-all-as-done').addEventListener('click', markAllAsDone);
+</script>
+
+
+<!-- Хранение данных между вкладками браузера -->
+<!-- Local Storage -->
+<!-- https://learn.javascript.ru/localstorage -->
+<script>
+  localStorage.name = 'alex';
+  localStorage.name;
+  localStorage.user = { name: 'alex' };
+  localStorage.user;
+</script>
+
+<!-- JSON -->
+<!-- https://learn.javascript.ru/json -->
+<!-- JSON.stringify(value) -->
+<!-- JSON.parse(value) -->
+<!-- ЗАДАНИЕ -->
+<!-- Задать объект с полем name. -->
+<!-- Задать переменную, которая будет хранить JSON упомянутого объекта. -->
+<!-- Задать переменную, которая будет хранить результат парсинга предыдущей переменной. -->
+<script>
+  let user = { name: 'alex' };
+  let userJson = JSON.stringify(user);
+  let user1 = JSON.parse(userJson);
+</script>
+
+<!-- ЗАДАНИЕ -->
+<!-- Создать переменную user, в которой хранится объект. -->
+<!-- Записать переменную в localStorage. -->
+<!-- Создать переменную newUser, в которой будет храниться JS объект из localStorage. -->
+<script>
+  let user = { name: 'alex' };
+  localStorage.user = JSON.stringify(user);
+  let newUser = JSON.parse(localStorage.user);
+</script>
+
 <!-- ДЗ 1 -->
 <!-- Написать алгоритм, который переместит все нули в конец массива -->
 <!-- [8,10,0,7,2,0,1,2,1,0] => [8,10,7,2,1,2,1,0,0,0] -->
