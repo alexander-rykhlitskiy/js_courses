@@ -1,3 +1,25 @@
+ЗАДАНИЕ
+1. Задать массив строк
+2. Во время загрузки страницы нужно отображать строки списком
+3. По клику на каждый элемент в списке он должен удаляться
+
+<script type="text/javascript">
+  let names = ["jeka", 'dima', "andrey", 'ivan'];
+
+  let ul = document.createElement('ul');
+
+  for (let name of names) {
+    let li = document.createElement('li');
+    li.textContent = name;
+    ul.append(li);
+    li.addEventListener('click', function() {
+      li.remove();
+    })
+  }
+  document.body.append(ul);
+  li = document.querySelector('li')
+</script>
+
 Событие `mousemove` \
 ЗАДАНИЕ \
 Задать в html прямоугольный div. Также задать массив цветов. По наведению мышки div, его цвет должен меняться на следующий из массива
@@ -201,6 +223,14 @@ addDeleteButton(li);
   ];
   users.sort((a, b) => a.name === b.name ? 0 : (a.name > b.name ? 1 : -1))
 </script>
+
+При создании todo item сохранять его объект (2 поля: title, checked) в localStorage
+
+
+Завести массив задач tasks. После каждого добавления новой задачи добавлять новый объект в массив, а также сохранять этот массив в localStorage
+
+
+При загрузке страницы инициализировать переменную tasks не пустым массивом, а значением из localStorage
 
 <!-- ДЗ 6 -->
 <!-- ToDo App -->
