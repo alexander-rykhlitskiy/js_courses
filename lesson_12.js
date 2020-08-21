@@ -7,6 +7,13 @@
 let car = { color: 'red' };
 car.go = function() { console.log(`${this.color} car goes`); }
 car.go();
+
+// https://learn.javascript.ru/object-methods#sokraschyonnaya-zapis-metoda
+let car = {
+  go() {
+    console.log(`${this.color} car goes`);
+  }
+}
 // 2.3 Конструктор
 // https://learn.javascript.ru/constructor-new
 function Car(color) {
