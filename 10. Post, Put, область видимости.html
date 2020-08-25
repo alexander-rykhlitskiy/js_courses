@@ -167,7 +167,7 @@
 <!-- При загрузке страницы создавать задачу методом POST. Title - ваше имя -->
 <!-- Возвращаемое после запроса JSON содержимое записать в тег div. -->
 
-<!-- Добавить кнопку "Обновить", при нажатии на которую отправляется запрос PUT на урл "https://todoappexamplejs.herokuapp.com/items/${id, который пришел в ответе на POST запрос}". -->
+<!-- Добавить кнопку "Обновить", при нажатии на которую отправляется запрос PUT на урл "https://todoappexamplejs.herokuapp.com/items/${id}, который пришел в ответе на POST запрос}". -->
 <!-- Тело запроса - JSON, в котором title - текущее время. -->
 <!-- После обновления текст кнопки нужно проставить в "Обновлено". -->
 
@@ -216,84 +216,4 @@
     xmlHttp.setRequestHeader('Accept', 'application/json')
     xmlHttp.send();
   })
-</script>
-
-<!-- Промисы -->
-<!-- https://learn.javascript.ru/promise -->
-<!-- setTimeout(() => console.log(1), 1000) -->
-<!-- ЗАДАНИЕ (сложное и непонятное, но необходимое для описания проблемы, которую решают промисы) -->
-<!-- С периодичностью 1000 мс 3 раза выводить в консоль число 1. -->
-<script>
-  setTimeout(() => {
-    console.log(1)
-    setTimeout(() => {
-      console.log(1)
-      setTimeout(() => {
-        console.log(1)
-      }, 1000);
-    }, 1000);
-  }, 1000);
-</script>
-
-<!-- То же самое с промисами -->
-<script>
-  function log() {
-    let result = new Promise((resolve) => {
-      let fun = () => {
-        console.log(1);
-        resolve();
-      }
-
-      setTimeout(fun, 1000)
-    });
-    return result;
-  }
-
-  log().then(log).then(log); // так называемая цепочка промисов
-</script>
-
-<!-- ЗАДАНИЕ (немного понятнее предыдущего) -->
-<!-- Создать функцию для отправки http GET запроса. Функция должна возвращать что-то, что можно использовать для отображения ответа. -->
-<script>
-  function httpGet(url) {
-    return new Promise(function(resolve, reject) {
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', url);
-
-      xhr.onload = function() {
-        resolve(this.response);
-      };
-
-      xhr.send();
-    });
-  }
-
-  let promise = httpGet('https://todoappexamplejs.herokuapp.com/items/2.json');
-  promise.then(response => document.body.innerText = response)
-</script>
-
-<!-- Полный пример с обработкой ошибок -->
-<script>
-  function httpGet(url) {
-    return new Promise(function(resolve, reject) {
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', url);
-
-      xhr.onload = function() {
-        if (this.status == 200) {
-          resolve(this.response);
-        } else {
-          var error = new Error(this.statusText);
-          error.code = this.status;
-          reject(error);
-        }
-      };
-
-      xhr.onerror = function() {
-        reject(new Error("Network Error"));
-      };
-
-      xhr.send();
-    });
-  }
 </script>
