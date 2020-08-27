@@ -1,5 +1,5 @@
 <!-- ЗАДАНИЕ-ПОВТОРЕНИЕ -->
-<!-- При нажатии на кнопку "Обновить" отправляется запрос PUT на урл "https://todoappexamplejs.herokuapp.com/items/85". -->
+<!-- При нажатии на кнопку "Обновить" отправляется запрос PUT на урл "https://todoappexamplejs.herokuapp.com/items/116". -->
 <!-- Тело запроса - JSON, в котором title - ваше имя. -->
 <!-- После обновления распарсить JSON-ответ, достать оттуда поле updated_at и проставить его в div, который необходимо создать и добавить на страницу. -->
 
@@ -18,7 +18,7 @@
       document.body.append(div);
       div.innerText = response.updated_at;
     }
-    xmlHttp.open("PUT", 'https://todoappexamplejs.herokuapp.com/items/85');
+    xmlHttp.open("PUT", 'https://todoappexamplejs.herokuapp.com/items/116');
     xmlHttp.setRequestHeader('Content-Type', 'application/json')
     xmlHttp.setRequestHeader('Accept', 'application/json')
     xmlHttp.send(JSON.stringify({ title: 'alex' }));
@@ -40,14 +40,34 @@
   console.log([...document.querySelectorAll('li')].map(li => li.textContent))
 </script>
 
-<!-- fetch -->
+<!-- this -->
+<!-- ЗАДАНИЕ -->
+<!-- Создать объект с полем name и методом showName, который выводит поле name в консоль. -->
 <script>
-  let promise = fetch('https://todoappexamplejs.herokuapp.com/items/40');
+  let user = { name: 'tom' };
+  user.showName = function() {
+    console.log(this.name);
+  }
+</script>
+<!-- Использовать this -->
+<!-- Использовать стрелочную и обычную функции -->
+
+<!-- ЗАДАНИЕ -->
+<!-- Реализовать функцию, которая отправляет GET запрос на урл "https://todoappexamplejs.herokuapp.com/items/116". -->
+<!-- Вызвав эту функцию можно получить и использовать ответ от сервера. -->
+
+<!-- Промисы -->
+<!-- https://learn.javascript.ru/promise-basics -->
+
+<!-- fetch -->
+<!-- https://learn.javascript.ru/fetch -->
+<script>
+  let promise = fetch('https://todoappexamplejs.herokuapp.com/items/116');
   let secondPromise = promise.then(response => response.json());
   secondPromise.then(data => console.log(data))
 
   // Или с заголовками
-  fetch('https://todoappexamplejs.herokuapp.com/items/40', {
+  fetch('https://todoappexamplejs.herokuapp.com/items/116', {
     headers: {
       'Accept': 'application/json'
     }
@@ -56,7 +76,7 @@
     .then(data => console.log(data));
 
   // Отправка PUT запроса
-  let promise = fetch('https://todoappexamplejs.herokuapp.com/items/40', {
+  let promise = fetch('https://todoappexamplejs.herokuapp.com/items/116', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -84,7 +104,7 @@
 <!-- ЗАДАНИЕ -->
 <!-- Реализовать функцию httpGet из предыдущего занятия, который принимает урл и возвращает что-то, на чем можно вызвать then и передать туда функцию, которая выполнится, когда запрос завершится. Т.о. должен работать следующий код -->
 <script>
-  const url = 'https://todoappexamplejs.herokuapp.com/items/40';
+  const url = 'https://todoappexamplejs.herokuapp.com/items/116';
   httpGet(url).then(response => document.body.textContent = response);
 </script>
 
@@ -112,7 +132,7 @@
 <!-- ЗАДАНИЕ -->
 <!-- Релизовать функцию httpGet, с которой будет выполняться следующий код -->
 <script>
-  let promise = httpGet('https://todoappexamplejs.herokuapp.com/items/40')
+  let promise = httpGet('https://todoappexamplejs.herokuapp.com/items/116')
   setTimeout(() => promise.then(response => document.body.textContent = response), 2000)
 </script>
 
@@ -122,14 +142,14 @@
     let result = {
       callCallback(response) {
         if (this.callback) {
-          callback(response)
+          this.callback(response)
         } else {
           this.response = response;
         }
       },
       then(callback) {
         if (this.response) {
-          callback(this.response)
+          this.callback(this.response)
         } else {
           this.callback = callback;
         }
@@ -147,3 +167,83 @@
   }
 </script>
 
+
+<!-- ЗАДАНИЕ (немного понятнее предыдущего) -->
+<!-- Создать функцию для отправки http GET запроса. Функция должна возвращать что-то, что можно использовать для отображения ответа. -->
+<script>
+  function httpGet(url) {
+    return new Promise(function(resolve) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', url);
+
+      xhr.onload = function() {
+        resolve(xhr.responseText);
+      };
+
+      xhr.send();
+    });
+  }
+
+  let promise = httpGet('https://todoappexamplejs.herokuapp.com/items/2.json');
+  promise.then(response => document.body.innerText = response)
+</script>
+
+<!-- Полный пример с обработкой ошибок -->
+<script>
+  function httpGet(url) {
+    return new Promise(function(resolve, reject) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', url);
+
+      xhr.onload = function() {
+        if (this.status == 200) {
+          resolve(this.response);
+        } else {
+          var error = new Error(this.statusText);
+          error.code = this.status;
+          reject(error);
+        }
+      };
+
+      xhr.onerror = function() {
+        reject(new Error("Network Error"));
+      };
+
+      xhr.send();
+    });
+  }
+</script>
+
+
+
+<!-- setTimeout(() => console.log(1), 1000) -->
+<!-- ЗАДАНИЕ (сложное и непонятное, но необходимое для описания проблемы, которую решают промисы) -->
+<!-- С периодичностью 1000 мс 3 раза выводить в консоль число 1. -->
+<script>
+  setTimeout(() => {
+    console.log(1)
+    setTimeout(() => {
+      console.log(1)
+      setTimeout(() => {
+        console.log(1)
+      }, 1000);
+    }, 1000);
+  }, 1000);
+</script>
+
+<!-- То же самое с промисами -->
+<script>
+  function log() {
+    let result = new Promise((resolve) => {
+      let fun = () => {
+        console.log(1);
+        resolve();
+      }
+
+      setTimeout(fun, 1000)
+    });
+    return result;
+  }
+
+  log().then(log).then(log); // так называемая цепочка промисов
+</script>
