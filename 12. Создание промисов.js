@@ -1,3 +1,159 @@
+<!-- ЗАДАНИЕ -->
+<!-- Добавить в каждый li кнопку "Удалить". При нажатии на эту кнопку отправляется DELETE запрос, который удалит задачу. Также этот li нужно удалить со страницы -->
+<!-- Для получения урла можно к урлу https://todoappexamplejs.herokuapp.com/items/ добавить id из JSON-а в теге div. Получится урл https://todoappexamplejs.herokuapp.com/items/123 -->
+
+
+<!-- ЗАДАНИЕ -->
+<!-- Добавить в каждый li тег input и кнопку "Обновить". При нажатии на эту кнопку отправляется PUT запрос, который должен проставить в title содержимое инпута. -->
+
+
+<!-- ЗАДАНИЕ -->
+<!-- Реализовать функцию httpGet из предыдущего занятия, который принимает урл и возвращает что-то, на чем можно вызвать then и передать туда функцию, которая выполнится, когда запрос завершится. Т.о. должен работать следующий код -->
+<script>
+  const url = 'https://todoappexamplejs.herokuapp.com/items/116';
+  httpGet(url).then(response => document.body.textContent = response);
+</script>
+
+<!-- ЗАДАНИЕ (немного понятнее предыдущего) -->
+<!-- Создать функцию для отправки http GET запроса. Функция должна возвращать что-то, что можно использовать для отображения ответа. -->
+<script>
+  function httpGet(url) {
+    return new Promise(function(resolve) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', url);
+
+      xhr.onload = function() {
+        resolve(xhr.responseText);
+      };
+
+      xhr.send();
+    });
+  }
+
+  let promise = httpGet('https://todoappexamplejs.herokuapp.com/items/2.json');
+  promise.then(response => document.body.innerText = response)
+</script>
+
+<!-- Нужно помнить, что никакой магии не существует. Простейший промис можно реализовать следующим образом -->
+<script>
+  function httpGet(url) {
+    let result = {
+      then(callback) {
+        this.callback = callback;
+      }
+    }
+
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onload = function() {
+      result.callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", url);
+    xmlHttp.setRequestHeader('Accept', 'application/json')
+    xmlHttp.send();
+    return result;
+  }
+</script>
+
+<!-- ЗАДАНИЕ -->
+<!-- Релизовать функцию httpGet, с которой будет выполняться следующий код -->
+<script>
+  let promise = httpGet('https://todoappexamplejs.herokuapp.com/items/116')
+  setTimeout(() => promise.then(response => document.body.textContent = response), 2000)
+</script>
+
+<!-- Возможная реализация -->
+<script>
+  function httpGet(url) {
+    let result = {
+      callCallback(response) {
+        if (this.callback) {
+          this.callback(response)
+        } else {
+          this.response = response;
+        }
+      },
+      then(callback) {
+        if (this.response) {
+          this.callback(this.response)
+        } else {
+          this.callback = callback;
+        }
+      }
+    }
+
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onload = function() {
+      result.callCallback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", url);
+    xmlHttp.setRequestHeader('Accept', 'application/json')
+    xmlHttp.send();
+    return result;
+  }
+</script>
+
+
+<!-- Полный пример с обработкой ошибок -->
+<script>
+  function httpGet(url) {
+    return new Promise(function(resolve, reject) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', url);
+
+      xhr.onload = function() {
+        if (this.status == 200) {
+          resolve(this.response);
+        } else {
+          var error = new Error(this.statusText);
+          error.code = this.status;
+          reject(error);
+        }
+      };
+
+      xhr.onerror = function() {
+        reject(new Error("Network Error"));
+      };
+
+      xhr.send();
+    });
+  }
+</script>
+
+
+
+<!-- setTimeout(() => console.log(1), 1000) -->
+<!-- ЗАДАНИЕ (сложное и непонятное, но необходимое для описания проблемы, которую решают промисы) -->
+<!-- С периодичностью 1000 мс 3 раза выводить в консоль число 1. -->
+<script>
+  setTimeout(() => {
+    console.log(1)
+    setTimeout(() => {
+      console.log(1)
+      setTimeout(() => {
+        console.log(1)
+      }, 1000);
+    }, 1000);
+  }, 1000);
+</script>
+
+<!-- То же самое с промисами -->
+<script>
+  function log() {
+    let result = new Promise((resolve) => {
+      let fun = () => {
+        console.log(1);
+        resolve();
+      }
+
+      setTimeout(fun, 1000)
+    });
+    return result;
+  }
+
+  log().then(log).then(log); // так называемая цепочка промисов
+</script>
+
+
 // ООП
 // https://developer.mozilla.org/ru/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript
 // 1. Модульность. Когда спустило колесо, нужно искать проблему в колесе. Так легче предотвращать карго-культы.

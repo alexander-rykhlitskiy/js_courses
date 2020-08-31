@@ -91,5 +91,22 @@
 </script>
 
 <!-- ЗАДАНИЕ -->
-<!-- При загрузке страницы загружать из урла все задачи по урлу 'https://todoappexamplejs.herokuapp.com/items -->
+<!-- При загрузке страницы загружать все задачи по урлу 'https://todoappexamplejs.herokuapp.com/items -->
 <!-- Каждую задачу отображать отдельным элементом li. Содержимое li - div с JSON-ом задачи -->
+
+<body>
+  <ul>
+  </ul>
+</body>
+<script>
+  fetch('https://todoappexamplejs.herokuapp.com/items.json')
+    .then(response => response.json())
+    .then(tasks => {
+      let ul = document.querySelector('ul');
+      for (let task of tasks) {
+        let li = document.createElement('li');
+        li.textContent = JSON.stringify(task);
+        ul.appendChild(li);
+      }
+    })
+</script>
