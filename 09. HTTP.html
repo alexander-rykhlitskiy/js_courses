@@ -194,6 +194,7 @@
 <script>
   // Для инициализации объектов можно использовать функции-конструкторы
   function Person(name, age, male) {
+    // this = {}
     this.name = name;
     this.age = age;
     this.male = male;
@@ -209,6 +210,8 @@
       }
       return result.join(', ');
     }
+
+    // return this
   }
 
   new Person(1,2,3);

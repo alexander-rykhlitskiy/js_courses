@@ -101,6 +101,7 @@
 <script>
   fetch('https://todoappexamplejs.herokuapp.com/items.json')
     .then(response => response.json())
+    .then(function(response) { return response.json() })
     .then(tasks => {
       let ul = document.querySelector('ul');
       for (let task of tasks) {
