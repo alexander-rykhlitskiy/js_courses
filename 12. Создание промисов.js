@@ -1,3 +1,5 @@
+// https://learn.javascript.ru/promisify
+
 // ЗАДАНИЕ
 // Добавить в каждый li кнопку "Удалить". При нажатии на эту кнопку отправляется DELETE запрос, который удалит задачу. Также этот li нужно удалить со страницы
 // Для получения урла можно к урлу https://todoappexamplejs.herokuapp.com/items/ добавить id из JSON-а в теге div. Получится урл https://todoappexamplejs.herokuapp.com/items/123
@@ -98,3 +100,5 @@ function httpGet(url) {
 
 let promise = httpGet('https://todoappexamplejs.herokuapp.com/items.json');
 promise.then(response => document.body.innerText = response)
+
+// https://learn.javascript.ru/promise-chaining
