@@ -1,111 +1,59 @@
+// ЗАДАНИЕ
+// Релизовать функцию httpGet, с которой будет выполняться следующий код, не используя промисы
+let promise = httpGet('https://todoappexamplejs.herokuapp.com/items.json')
+promise.then(response => document.body.textContent = response)
 
 // Нужно помнить, что никакой магии не существует. Простейший промис можно реализовать следующим образом
-  function httpGet(url) {
-    let result = {
-      then(callback) {
+function httpGet(url) {
+  let result = {
+    then(callback) {
+      this.callback = callback;
+    }
+  }
+
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.onload = function() {
+    result.callback(xmlHttp.responseText);
+  }
+  xmlHttp.open("GET", url);
+  xmlHttp.setRequestHeader('Accept', 'application/json')
+  xmlHttp.send();
+  return result;
+}
+
+// ЗАДАНИЕ
+// Релизовать функцию httpGet, с которой будет выполняться следующий код, не используя промисы
+let promise = httpGet('https://todoappexamplejs.herokuapp.com/items.json')
+setTimeout(() => promise.then(response => document.body.textContent = response), 2000)
+
+// Возможная реализация
+function httpGet(url) {
+  let result = {
+    callCallback(response) {
+      if (this.callback) {
+        this.callback(response)
+      } else {
+        this.response = response;
+      }
+    },
+    then(callback) {
+      if (this.response) {
+        this.callback(this.response)
+      } else {
         this.callback = callback;
       }
     }
-
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onload = function() {
-      result.callback(xmlHttp.responseText);
-    }
-    xmlHttp.open("GET", url);
-    xmlHttp.setRequestHeader('Accept', 'application/json')
-    xmlHttp.send();
-    return result;
   }
 
-// ЗАДАНИЕ
-// Релизовать функцию httpGet, с которой будет выполняться следующий код не используя промисы
-  let promise = httpGet('https://todoappexamplejs.herokuapp.com/items.json')
-  setTimeout(() => promise.then(response => document.body.textContent = response), 2000)
-
-// Возможная реализация
-  function httpGet(url) {
-    let result = {
-      callCallback(response) {
-        if (this.callback) {
-          this.callback(response)
-        } else {
-          this.response = response;
-        }
-      },
-      then(callback) {
-        if (this.response) {
-          this.callback(this.response)
-        } else {
-          this.callback = callback;
-        }
-      }
-    }
-
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onload = function() {
-      result.callCallback(xmlHttp.responseText);
-    }
-    xmlHttp.open("GET", url);
-    xmlHttp.setRequestHeader('Accept', 'application/json')
-    xmlHttp.send();
-    return result;
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.onload = function() {
+    result.callCallback(xmlHttp.responseText);
   }
-
-
-// Полный пример с обработкой ошибок
-  function httpGet(url) {
-    return new Promise(function(resolve, reject) {
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', url);
-
-      xhr.onload = function() {
-        if (this.status == 200) {
-          resolve(this.response);
-        } else {
-          var error = new Error(this.statusText);
-          error.code = this.status;
-          reject(error);
-        }
-      };
-
-      xhr.onerror = function() {
-        reject(new Error("Network Error"));
-      };
-
-      xhr.send();
-    });
-  }
-
-
-
-// setTimeout(() => console.log(1), 1000)
-// ЗАДАНИЕ (сложное и непонятное, но необходимое для описания проблемы, которую решают промисы)
-// С периодичностью 1000 мс 3 раза выводить в консоль число 1.
-  setTimeout(() => {
-    console.log(1)
-    setTimeout(() => {
-      console.log(1)
-      setTimeout(() => {
-        console.log(1)
-      }, 1000);
-    }, 1000);
-  }, 1000);
-
-// То же самое с промисами
-  function log() {
-    let result = new Promise((resolve) => {
-      let fun = () => {
-        console.log(1);
-        resolve();
-      }
-
-      setTimeout(fun, 1000)
-    });
-    return result;
-  }
-
-  log().then(log).then(log); // так называемая цепочка промисов
-
+  xmlHttp.open("GET", url);
+  xmlHttp.setRequestHeader('Accept', 'application/json')
+  xmlHttp.send();
+  return result;
+}
 
 // ООП
 // https://developer.mozilla.org/ru/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript
@@ -252,7 +200,9 @@ let pockets = {
 // https://learn.javascript.ru/class
 class Car {
   constructor(color) {
+    // this = {};
     this.color = color;
+    // return this;
   }
 
   go() {
@@ -264,7 +214,7 @@ class Car {
   }
 }
 
-new Car('red');
+new Car('red'); // значение 'red' передается в конструктор в качестве параметра color
 
 // Синтаксис такой же, как в методах объекта, только в классах между методами не нужна запятая
 let car = {
@@ -284,20 +234,75 @@ let car = {
 
 // Наследование классов
 // https://learn.javascript.ru/class-inheritance
-class Truck extends Car {
-  go() {
-    super.go();
-    console.log(`${this.color} truck goes`);
+class Animal {
+  say() {
+    console.log('open mouth');
   }
 }
 
-let truck = new Truck('green');
-truck.go();
+class Dog extends Animal {
+  say() {
+    super.say();
+    console.log('say bark');
+  }
+}
+
+let dog = new Dog();
+dog.say();
+
+// Конструктор базового класса
+class A extends B {
+  constructor(a) {
+    super(a);
+    console.log('specific A behaviour');
+  }
+
+  toHTML() {
+    return `<span>${this.a}</span>`
+  }
+}
 
 // ЗАДАНИЕ
-// Описать класс Animal, который в конструктор принимает 3 параметра и сохраняет их в свойства.
+// Описать класс Animal, который в конструктор принимает 2 параметра и сохраняет их в свойства.
 // Также у класса описать: метод toHTML, который возвращает HTML со свойствами.
 // Описать 2 класса конкретных животных, которые добавляют в конструктор по 1 полю, а также переопределяют метод toHTML.
+
+class Animal {
+  constructor(legs, eyes) {
+    this.legs = legs;
+    this.eyes = eyes;
+  }
+
+  toHTML() {
+    return `<p>${this.legs}</p><p>${this.eyes}</p>`
+  }
+}
+
+class Cat extends Animal {
+  constructor(a, b, moustashe) {
+    super(a, b);
+    this.c = c;
+  }
+
+  toHTML() {
+    return `<p>${this.a}</p><p>${this.b}</p><p>${this.c}</p>`
+  }
+}
+
+class Dog extends Animal {
+  constructor(legs, eyes, bone) {
+    super(legs, eyes);
+    this.bone = bone;
+  }
+
+  toHTML() {
+    return super.toHTML() + `<p>${this.bone}</p>`
+  }
+}
+
+let dog = new Dog(1,2,3);
+dog.toHTML();
+
 
 // Инкапсуляция
 // https://learn.javascript.ru/private-protected-properties-methods
