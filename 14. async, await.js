@@ -1,12 +1,56 @@
 // ЗАДАНИЕ-ПОВТОРЕНИЕ
+// Реализовать функцию mul, которая принимает 1 параметр, number.
+// Также она создает и возвращает промис.
+// Через 2 секунды (используя setTimeout) промис должен резолвиться в number * 2
+// Работает так:
+// mul(10).then(number => console.log(number)) // в консоль выведено число 20
+
+function mul(number) {
+  const promise = new Promise(resolve => {
+    setTimeout(() => resolve(number * 2), 2000)
+  });
+  return promise;
+}
+mul(10).then(number => console.log(number))
+
+// Обработка ошибок HTTP запросов
+
+// Полный пример с обработкой ошибок
+function httpGet(url) {
+  return new Promise(function(resolve, reject) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url);
+
+    xhr.onload = function() {
+      if (this.status == 200) {
+        resolve(this.response);
+      } else {
+        var error = new Error(this.statusText);
+        error.code = this.status;
+        reject(error);
+      }
+    };
+
+    xhr.onerror = function() {
+      reject(new Error("Network Error"));
+    };
+
+    xhr.send();
+  });
+}
+
+httpGet('https://todoappexamplejs.herokuapp.com/items.json').then(response => console.log(response), error => console.log('Error happened ' + error))
+httpGet('https://todoappexamplejs.herokuapp.com/items.json').then(response => console.log(response)).catch(error => console.log('Error happened ' + error))
+
+// ЗАДАНИЕ-ПОВТОРЕНИЕ
 // Создать функцию request, которая вызывает fetch с урлом
-// https://todoappexamplejs.herokuapp.com/items/118.json
+// https://todoappexamplejs.herokuapp.com/items.json
 // Функция возвращает результат вызова fetch, т.е. promise
 // Работает так:
 // request().then(response => response.json()).then(data => console.log(data))
 
 function request() {
-  return fetch('https://todoappexamplejs.herokuapp.com/items/118.json')
+  return fetch('https://todoappexamplejs.herokuapp.com/items.json')
 }
 request().then(response => response.json()).then(data => console.log(data))
 
@@ -75,21 +119,6 @@ let putRequest = new PutRequest(118, { title: 'blabla' });
 putRequest.perform().then(data => console.log(data))
 
 
-// ЗАДАНИЕ-ПОВТОРЕНИЕ
-// Реализовать функцию mul, которая принимает 1 параметр, number.
-// Также она создает и возвращает промис.
-// Через 2 секунды (используя setTimeout) промис должен резолвиться в number * 2
-// Работает так:
-// mul(10).then(number => console.log(number)) // в консоль выведено число 20
-
-function mul(number) {
-  const promise = new Promise(resolve => {
-    setTimeout(() => resolve(number * 2), 2000)
-  });
-  return promise;
-}
-mul(10).then(number => console.log(number))
-
 // Asynс-await
 // https://learn.javascript.ru/async-await
 // ЗАДАНИЕ-ПОВТОРЕНИЕ
@@ -98,7 +127,7 @@ mul(10).then(number => console.log(number))
 
 document.querySelector('button').addEventListener('click', function(event) {
   function request() {
-    return fetch('https://todoappexamplejs.herokuapp.com/items/118.json')
+    return fetch('https://todoappexamplejs.herokuapp.com/items.json')
   }
   request().then(response => response.json()).then(data => console.log(data))
 })
@@ -106,7 +135,7 @@ document.querySelector('button').addEventListener('click', function(event) {
 // Или используя async-await
 
 function request() {
-  return fetch('https://todoappexamplejs.herokuapp.com/items/118.json');
+  return fetch('https://todoappexamplejs.herokuapp.com/items.json');
 }
 document.querySelector('button').addEventListener('click', async function(event) {
   let fetchPromise = await request();
