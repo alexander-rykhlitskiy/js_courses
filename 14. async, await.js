@@ -1,17 +1,21 @@
 // ЗАДАНИЕ-ПОВТОРЕНИЕ
-// Реализовать функцию mul, которая принимает 1 параметр, number.
-// Также она создает и возвращает промис.
+// Реализовать класс Calculator с методом multiply, который принимает 1 параметр, number.
+// Также метод создает и возвращает промис.
 // Через 2 секунды (используя setTimeout) промис должен резолвиться в number * 2
 // Работает так:
-// mul(10).then(number => console.log(number)) // в консоль выведено число 20
+// let calc = new Calculator;
+// calc.multiply(10).then(number => console.log(number)) // в консоль выведено число 20
 
-function mul(number) {
-  const promise = new Promise(resolve => {
-    setTimeout(() => resolve(number * 2), 2000)
-  });
-  return promise;
+class Calculator {
+  multiply(number) {
+    const promise = new Promise(resolve => {
+      setTimeout(() => resolve(number * 2), 2000)
+    });
+    return promise;
+  }
 }
-mul(10).then(number => console.log(number))
+let calc = new Calculator;
+calc.multiply(10).then(number => console.log(number)) // в консоль выведено число 20
 
 // Обработка ошибок HTTP запросов
 
