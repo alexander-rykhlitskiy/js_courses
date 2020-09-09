@@ -4,6 +4,8 @@
 // В теле метода отправляется PUT запрос на обновление.
 // Метод возвращает JSON объект, возвращенный сервером.
 // Результат вызова метода выводить в консоль по нажатию на кнопку
+// 1. Сделать с then
+// 2. Сделать с async/await
 // <button>Кликни</button>
 class ToDoItem {
   constructor(id) {
@@ -65,17 +67,43 @@ try {
   console.log(e);
 }
 
-if (e instanceof ReferenceError) {
+if (e instanceof ReferenceError) { // ReferenceError: noFunction is not defined
   // ReferenceError action here
 }
+
+// В некоторых случаях использование throw позволяет применить "элегантный костыль" для выхода из глубины кода
+// Начало примера
+function fun1() {
+  try {
+    fun2();
+  } catch {
+    // мы хотим обработать ошибку из fun3 именно здесь, а не в fun2
+    console.log('error');
+  }
+}
+function fun2() {
+  fun3();
+  fun4(); // мы не хотим, чтобы этот код выполнился в случае ошибки в функции fun3
+}
+
+function fun3() {
+  throw new Error('ошибка'); // очень серьезная ошибка
+}
+// Конец примера
+
 
 // ЗАДАНИЕ
 // Используяю await/async fetch отправить запрос на несуществующий урл.
 // Отловить и вывести в консоль ошибку при помощи try/catch
+// Протестировать и в offline режиме (вкладка Network инструментов разработчика), и с несуществующим урлом (но который начинается с https://).
 document.querySelector('button').addEventListener('click', async function(event) {
   try {
-    let fetchPromise = await fetch('https://todoappexamplejs.herokuapp.com/error.json');
-    console.log(await fetchPromise.json())
+    let response = await fetch('https://todoappexamplejs.herokuapp.com/error.json');
+    if (response.status === 200) {
+      console.log(await response.json())
+    } else {
+      throw new Error('Неуспешный запрос')
+    }
   } catch(e) {
     console.log('Произошла ошибка');
     console.log(e);
@@ -85,6 +113,7 @@ document.querySelector('button').addEventListener('click', async function(event)
 // ЗАДАНИЕ
 // Используяю fetch без await/async отправить запрос на несуществующий урл.
 // Отловить и вывести в консоль ошибку при помощи .catch(err => {})
+// fetch(url).then().then().catch(err => {})
 document.querySelector('button').addEventListener('click', async function(event) {
   fetch('https://todoappexamplejs.herokuapp.com/error.json')
     .then(response => {

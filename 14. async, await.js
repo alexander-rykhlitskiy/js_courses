@@ -182,6 +182,7 @@ document.querySelector('button').addEventListener('click', async function(event)
 // https://stackoverflow.com/questions/597588/how-do-you-clone-an-array-of-objects-in-javascript
 let a = [1,2,3];
 let b = a.slice(0);
+b = [...a];
 
 // Deep copy массива
 JSON.parse(JSON.stringify(nodesArray));
