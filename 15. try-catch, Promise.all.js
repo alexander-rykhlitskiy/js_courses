@@ -189,7 +189,7 @@ Promise.race([
 // Подсказка: когда написали несколько первых символов имени папки, нажмите tab
 
 // Установка git
-// Если не получается, смотрим короткий https://www.youtube.com/watch?v=NkH_7Vrw8AU и длинный видосы https://www.youtube.com/watch?v=clCcy8_AFHM
+// Если не получается, смотрим короткий видос https://www.youtube.com/watch?v=NkH_7Vrw8AU
 // 1. Скачать https://git-scm.com/download/win "Click here to download manually"
 // 2. Установить. Нажимает Next. На экране "Choosing the default editor used by Git" в селекте выберете ваш редактор или установите и выберете Visual Studio Code
 // 3. В пуск написать "git bash"
@@ -202,7 +202,7 @@ Promise.race([
 // 3.6 Зайти на https://github.com/settings/keys. Нажать "New SSH key". Вставить тот вывод в поле "Key". Нажать "Add SSH key"
 // 3.7 Вернуться в окно git bash. Выполнить "ssh -T git@github.com". Написать yes, нажать enter. Должно показаться ваше имя пользователя на github
 // 3.8 Запустить "ssh-agent"
-// 3.9 Зайти на страницу вашего проекта на github. Нажать "Clone". Скопировать урл вида git@github.com:.... ВАЖНО: урл должен начинаться на git@github.com
+// 3.9 Зайти на страницу вашего проекта на github. Нажать "Code" (возможно, нужно нажать "Use SSH"). Скопировать урл вида git@github.com:.... ВАЖНО: урл должен начинаться на git@github.com
 // 3.10 Запустить в git bash "git clone скопированный_урл"
 // 3.11 Запустить ls. В выведенном списке должна быть папка вашего проекта с github
 
