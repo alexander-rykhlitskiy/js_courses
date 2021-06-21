@@ -62,14 +62,11 @@
 <!-- fetch -->
 <!-- https://learn.javascript.ru/fetch -->
 <script>
-  let promise = fetch('https://todoappexamplejs.herokuapp.com/items/116');
-  promise.then(response => response.json()).then(data => data.title)
-
-  let secondPromise = promise.then(response => response.json());
-  secondPromise.then(data => console.log(data))
+  let promise = fetch('https://todoappexamplejs.herokuapp.com/items/39.json');
+  promise.then(response => response.json()).then(data => console.log(data.title))
 
   // Или с заголовками
-  fetch('https://todoappexamplejs.herokuapp.com/items/116', {
+  fetch('https://todoappexamplejs.herokuapp.com/items/39', {
     headers: {
       'Accept': 'application/json'
     }
@@ -101,7 +98,6 @@
 <script>
   fetch('https://todoappexamplejs.herokuapp.com/items.json')
     .then(response => response.json())
-    .then(function(response) { return response.json() })
     .then(tasks => {
       let ul = document.querySelector('ul');
       for (let task of tasks) {
