@@ -1,7 +1,7 @@
 // ЗАДАНИЕ
 // Релизовать функцию httpGet, с которой будет выполняться следующий код, не используя промисы
 let promise = httpGet('https://todoappexamplejs.herokuapp.com/items.json')
-promise.then(response => document.body.textContent = response)
+promise.then(response => console.log(response))
 
 // Нужно помнить, что никакой магии не существует. Простейший промис можно реализовать следующим образом
 function httpGet(url) {
@@ -24,7 +24,10 @@ function httpGet(url) {
 // ЗАДАНИЕ
 // Релизовать функцию httpGet, с которой будет выполняться следующий код, не используя промисы
 let promise = httpGet('https://todoappexamplejs.herokuapp.com/items.json')
-setTimeout(() => promise.then(response => document.body.textContent = response), 2000)
+setTimeout(() => promise.then(response => console.log(response)), 2000)
+
+let promise1 = httpGet('https://todoappexamplejs.herokuapp.com/items.json')
+promise1.then(response => console.log(response))
 
 // Возможная реализация
 function httpGet(url) {
@@ -38,7 +41,7 @@ function httpGet(url) {
     },
     then(callback) {
       if (this.response) {
-        this.callback(this.response)
+        callback(this.response)
       } else {
         this.callback = callback;
       }
